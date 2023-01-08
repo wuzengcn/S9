@@ -6,12 +6,22 @@
     <meta name="author" content="Wu Zeng, MD, PhD" />
     <script src="libs/header-attrs-2.18/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
     <link rel="stylesheet" href="libs/css/default-fonts.css" type="text/css" />
     <link rel="stylesheet" href="libs/css/my-red.css" type="text/css" />
     <link rel="stylesheet" href="libs/css/hygge-gu.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
+
+
 
 class: title-slide, center, middle, inverse
 
@@ -30,56 +40,250 @@ class: title-slide, center, middle, inverse
 ### March 10 2022
 
 ---
-class: top
 
-# Slides 1
+# Simply linear regression 
 
 .pull-left[
 
-- #### Create a dataset
+1. Objective 
 
-- #### Create a new variables
+1. Model specification 
 
-- #### Recode variables
+1. Coefficient estimation 
 
-- #### Rename variables
+1. Measure of fit
 
-- #### Missing values
+1. Significance test of the model and coefficient(s) 
+
+1. Interpretation of coefficient(s) 
+
+1. Others (assumptions and transformation)
+
+1. Realization in R
 ]
+
 .pull-right[
-- #### Date values
 
-- #### Type conversions
+1. Test independence of two continuous variables
 
-- #### Sort data
+1. Population: `\(Y_i = \beta_0 + \beta_1X_i + u_i\)`, sample: `\(y_i = \hat{\beta_0} + \hat{\beta_1}x_i + \epsilon_i\)` &lt;sup&gt;1
 
-- #### Merge data
+1. Least squares estimation `\(min(\epsilon^2)\)` to estimate `\(\hat{\beta_0}\)` and `\(\hat{\beta_1}\)`
 
-- #### subset dataset
+1. Does the model fit the data well?
+
+1. Statistical significance test of `\(\hat{\beta_0}\)` and  `\(\hat{\beta_1}\)`
+
+1. What is the meaning of `\(\hat{\beta_0}\)` and  `\(\hat{\beta_1}\)`?
+
+1. What are the assumptions in using simple linear regression? 
+
+1. R commands to conduct simple linear regression
+
+&lt;br&gt;
+
+&lt;sup&gt;1 &lt;/sup&gt; `\(\hat{}\)` refers to sample estimates, population parameters are without `\(\hat{}\)`, which is `\(\beta_0\)` and `\(\beta_1\)`
+]
+
+---
+
+# Relationship between two continous variables 
+
+
+---
+
+# Model specfication for a simple linear regresion 
+
+.pull-left[
+
+ Population: 
+ 
+ `$$Y_i = \beta_0 + \beta_1X_i + u_i$$` 
+ - X is the independent variable 
+ 
+ - Y is the dependent variable 
+ 
+ - `\(\beta_0\)` = intercept 
+ 
+ - `\(\beta_1\)` = slope
+ 
+ - `\(u_i\)` is error term
+ 
+Sample: 
+ 
+`$$y_i = \hat{\beta_0} + \hat{\beta_1}x_i + \epsilon_i$$`
+`$$y_i = \hat{y} + \epsilon_i$$`
+]
+
+.pull-right[
+
+.panelset[
+.panel[.panel-name[scatter plot]
+
+&lt;img src="index_files/figure-html/unnamed-chunk-1-1.png" height="400" style="display: block; margin: auto;" /&gt;
+]
+
+.panel[.panel-name[Regression]
+
+&lt;img src="index_files/figure-html/lmexp1-1.png" height="400" style="display: block; margin: auto;" /&gt;
+
+]
+]
 ]
 ---
 
+# Coefficent estimation 
+
+.pull-left[
+
+&lt;img src="index_files/figure-html/lmexp 2-1.png" height="400" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+Ordinary Least Squares (OLS) approach to estimate `\(\beta_0 \text{ and } \beta_1\)`
+
+ `$$min\sum(y_i-\hat{y_i})^2 = min\sum\epsilon^2$$`
+then we we obtain 
+
+`$$\hat{\beta_1} = \frac{\sum (x_i-\bar{x})(y_i-\bar{y}))}{\sum (x_i-\bar{x})^2}$$`
+and 
+
+`$$\hat{\beta_0} = \bar{y}-\hat{\beta_1}\bar{x}$$`
+]
 ---
-# Using different approach 
 
-For data management, we will use package of tidyverse 
+# Measures of fitness of the model 
 
-If you have not install tidyverse, please use the command of 
+`\(R^2\)`
 
-.red[install.packages("tidyverse")]
+`$$y_i = \hat{y_1} + \epsilon$$`
+`$$(y_i - \bar{y}) = (\hat{y_i} - \bar{y}) + \epsilon_i$$`
+Mathematically, if `\(\epsilon\)` is independent from `\(x\)` and `\(y\)` and `\(\epsilon\)` has expected value of `0` and consistant standard devariation
 
-To install it, and then use 
+`$$\sum (y_i - \bar{y})^2 = \sum (\hat{y_i} - \bar{y})^2 + \sum\epsilon^2$$`
+`$$TSS = SSE + SSR$$`
+Goodness of fit `\(R^2\)`
 
-.red[library(tidyverse)]
-
-to load the package
----
-class: middle, center, inverse
-
-# Results 
-
+`$$R^2 = \frac{SSE}{TSS} = 1-\frac{SSR}{TSS}$$`
 ---
 
+# Interpreation of R2
+
+In the example above, we calculated the `\(R^2\)` is 0.761, whihc means 
+
+
+&lt;Center&gt; 
+
+&gt; The regression model could example **76.1%** of the total variance of `\(y_1\)`
+
+---
+
+# Some statistics look familar 
+
+- ANOVA 
+
+  - `\(TSS = SS_{between} + SS_{within}\)`
+  
+  - `\(F= \frac{\frac{SS_{between}}{df_{between}}}{\frac{SS_{within}}{df_{within}}} = \frac{MS_{between}}{MS_{within}}\)`
+  
+- Simple linear regression 
+
+  -  `\(TSS = SSE + SSR\)`
+  
+  -  `\(F= \frac{\frac{SSE}{df_{e}}}{\frac{{SSR}}{df_{r}}} = \frac{MS_{e}}{MS_{r}}\)`, `\(df_e\)` = number of `\(x\)`s, and `\(df_r\)` = sample size - number of xs -1, which is n- 2 in simple regression. 
+  
+  - The variance of residual is `\(s_r^2\)` = `\(MS_r\)`
+---
+
+# Statistical signficant test of coefficients 
+
+Are weight and height associated?
+
+--
+
+we are mostly interested in the coefficients for height, which is `\(\hat{\beta_1}\)`. If the two variables are not associated, then the expected coefficient would be 
+
+`$$0$$`
+Most time, we compare the estimated coefficient to `0`
+
+`$$t = \frac{\hat{\beta_1}-0}{se_{\hat{\beta_1}}}$$`
+`$$se_{\hat{\beta_1}} = \sqrt{\frac{S_r^2}{\sum (x_i-\bar{x})^2}}$$`
+
+similarly, we can test the `\(\hat{\beta_0}\)`
+---
+
+# Significant test 
+
+In the example, 
+
+`$$t = \frac{31.683}{6.277} = 5.24$$`
+
+with a degree of freedom of n - 2 = 10 - 2 = 8
+
+Use this piece information to estimate the probability `\(p\)`, the two-tail test shows that 
+
+`$$p = 0.000992$$`
+`\(95\% \text{ confidence interval =} \hat{\beta_1} \pm t*se_{\hat{beta_1}} = 31.683 \pm t_{0.05,8}*6.277 = 31.683 \pm 2.30*6.277\)`
+
+`\(95\% CI = (17.21, 46.16)\)`
+---
+
+# Interpretation of the coefficient 
+
+.pull-left[
+
+&lt;img src="index_files/figure-html/lmexp 2-1.png" height="400" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+
+What is the meaning of the 31.638?
+
+It leads to the concept of marginal effect of X on y. 
+
+If x increase by 1 unit, then y will change in **31.638** units; 
+
+if an individual increase in 1 meter, his/her weight will increase by 31.638 kgs. The 95% CI is (17.21, 46.16) kgs. It is statistically significant. 
+
+`\(\text{margnal effect} = \frac{\partial y}{\partial x}\)`
+
+in a simply linear regression 
+
+`$$y_i = \hat{\beta_0} + \hat{\beta_1}x_i$$`
+`$$\text{margnal effect =} \frac{\partial y_i}{\partial x_i} = \hat{\beta_1}$$`
+]
+---
+
+# Others 
+
+- Assumptions 
+
+  - **Zero mean**: the error term has a mean of zero
+  
+  - **Homoscedasticity**: Constant variance of the error term, which should be independent from X
+  
+  - **linearity**: y and x should be linearly related 
+  
+  - **Independence**: `\((x_i, y_i)\)` are independently sampled. 
+
+- transformation 
+
+  - Both `y` and `x` and be transformed in the simple regression. &lt;sup&gt;1 
+  
+  - `\(log(y) = \beta_0 + \beta_1x\)`
+  
+  - `\(y = \beta_0 + \beta_1*log(x)\)`
+  
+  - `\(y = \beta_0 + \beta_1x+ \beta_2x^2\)`
+  
+
+.footnote[Once they are transformed, the **interpretation** of coefficient changes]
+
+---
+
+
+---
 background-image: url("libs/pic/bookshelf.jpg")
 background-size: contain
 background-position: left
