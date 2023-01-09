@@ -96,7 +96,7 @@ class: title-slide, center, middle, inverse
 
 .pull-left[
 
- Population: 
+ .red[Population:] 
  
  `$$Y_i = \beta_0 + \beta_1X_i + u_i$$` 
  - X is the independent variable 
@@ -109,7 +109,7 @@ class: title-slide, center, middle, inverse
  
  - `\(u_i\)` is error term
  
-Sample: 
+.red[Sample:] 
  
 `$$y_i = \hat{\beta_0} + \hat{\beta_1}x_i + \epsilon_i$$`
 `$$y_i = \hat{y} + \epsilon_i$$`
@@ -141,7 +141,7 @@ Sample:
 
 .pull-right[
 
-Ordinary Least Squares (OLS) approach to estimate `\(\beta_0 \text{ and } \beta_1\)`
+.red[Ordinary Least Squares (OLS)] approach to estimate `\(\beta_0 \text{ and } \beta_1\)`
 
  `$$min\sum(y_i-\hat{y_i})^2 = min\sum\epsilon^2$$`
 then we we obtain 
@@ -170,9 +170,9 @@ Goodness of fit `\(R^2\)`
 
 # Interpreation of R2
 
-In the example above, we calculated the `\(R^2\)` is 0.761, whihc means 
+In the example above, we calculated the `\(R^2\)` is 0.761, which means 
 
-
+&lt;br&gt;
 &lt;Center&gt; 
 
 &gt; The regression model could example **76.1%** of the total variance of `\(y_1\)`
@@ -219,7 +219,7 @@ In the example,
 
 `$$t = \frac{31.683}{6.277} = 5.24$$`
 
-with a degree of freedom of n - 2 = 10 - 2 = 8
+with the degree of freedom of n - 2 = 10 - 2 = 8
 
 Use this piece information to estimate the probability `\(p\)`, the two-tail test shows that 
 
@@ -240,7 +240,7 @@ Use this piece information to estimate the probability `\(p\)`, the two-tail tes
 
 What is the meaning of the 31.638?
 
-It leads to the concept of marginal effect of X on y. 
+It leads to the concept of .red[marginal effect] of X on y. 
 
 If x increase by 1 unit, then y will change in **31.638** units; 
 
@@ -259,9 +259,9 @@ in a simply linear regression
 
 .pull-left[
 
-**Transformation** 
+.red[**Transformation**] 
 
-- Both `y` and `x` and be transformed in the simple regression. 
+- Both `y` and `x` can be transformed in the simple and multiple regression. 
   
   - `x` can be a dummy variable and categorical variable
   
@@ -274,7 +274,7 @@ in a simply linear regression
   
 .pull-right[
   
-**Assumptions** 
+.red[**Assumptions**] 
 
 - **linearity**: y and x should be linearly related 
 
@@ -354,14 +354,14 @@ F-statistic: 16.86 on 1 and 30 DF,  p-value: 0.000285
 
 - Specification: `\(log(y) = \beta_0 + \beta_1x\)`
 
-Take `\(log(y)\)` as a whole. If x increase by 1 unit, and `\(log(y)\)`, **not `\(y\)`**,  would increase by `\(\beta_1\)` unit. Better to derive its marginal effect using the derivatives. 
+Take `\(log(y)\)` as a whole. If x increase by 1 unit, and `\(log(y)\)`, .red[**not `\(y\)`**],  would increase by `\(\beta_1\)` unit. Better to derive its .red[marginal effect] using the .red[derivatives]. 
 
 `$$\frac{\partial log(y)}{\partial x} = \beta_1$$`
 `$$\frac{1}{y}*\frac{\partial y}{\partial x} = \beta_1$$`
 If this is hard to understand, you can treat `\(\partial\)` as a change `\((\Delta)\)`
 
 `$$\frac{1}{y}*\frac{\Delta y}{\Delta x} = \beta_1$$`
-`$$\frac{\Delta y}{y} = \beta_1\Delta x$$`
+`$$\boxed{\frac{\Delta y}{y} = \beta_1\Delta x}$$`
 if x change in 1 **unit** `\((\Delta x = 1)\)`, the percentage change of `\(y\)` would be `\(\beta_1*100\%\)`
 
 ---
@@ -387,7 +387,7 @@ What is the meaning of the 0.23 in the model?
 Specification: `\(y = \beta_0 + \beta_1log(x)\)`
 
 `$$\frac{\partial y}{\partial x} = \beta_1*\frac{\partial log(x)}{\partial x} = \beta_1*\frac{1}{x}$$`
-`$$\partial y = \beta_1 * \frac{\partial x}{x}$$`
+`$$\boxed{\partial y = \beta_1 * \frac{\partial x}{x}}$$`
 then the model should be explained as if x is increase by **1%**, y will `\(\beta_1/100\)` **unit**
 
 --
@@ -409,7 +409,7 @@ Specification: `\(log(y) = \beta_0 + \beta_1 log(x)\)`
 
 `$$\frac{\partial log(y)}{\partial x} = \beta_1*\frac{\partial log(x)}{\partial x}$$`
 `$$\frac{1}{y}*\frac{\partial y}{\partial x} = \beta_1 *\frac{1}{x}$$`
-`$$\frac{\partial y}{y} = \beta_1*\frac{\partial x}{x}$$`
+`$$\boxed{\frac{\partial y}{y} = \beta_1*\frac{\partial x}{x}}$$`
 then `\(\beta_1\)` is interpreated as if x increase by 1%, then y would increase by `\(\beta_1\%\)`. `\(\beta_1\)` is the elasticity in economics. 
 
 ---
@@ -444,7 +444,7 @@ What is the meaning of 0.5 in the regression model
 
 Specification: `\(y = \beta_0 + \beta_1x + \beta_2x^2\)`
 
-`\(\frac{\partial y}{\partial x} = \beta_1 + 2\beta_2x\)`
+.red[Marginal effect] = `\(\frac{\partial y}{\partial x} = \beta_1 + 2\beta_2x\)`
 
 `\(\text{Annual activity hour} = 20 + 10*age - 0.1*age^2\)`
 
@@ -453,6 +453,8 @@ then, the marginal effect is not a constant, depending on age.
 If you are at age of 20, 1 year increase in age, the activity would increase by 
 
 `\(10-0.1*20 = 8\)` hours
+
+How about at age 60?
 ]
 
 .pull-right[
