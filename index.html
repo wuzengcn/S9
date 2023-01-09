@@ -257,30 +257,317 @@ in a simply linear regression
 
 # Others 
 
-- Assumptions 
+.pull-left[
 
-  - **Zero mean**: the error term has a mean of zero
-  
-  - **Homoscedasticity**: Constant variance of the error term, which should be independent from X
-  
-  - **linearity**: y and x should be linearly related 
-  
-  - **Independence**: `\((x_i, y_i)\)` are independently sampled. 
+**Transformation** 
 
-- transformation 
+- Both `y` and `x` and be transformed in the simple regression. 
+  
+  - `x` can be a dummy variable and categorical variable
+  
+  - `\(log(y) = \beta_0 + \beta_1x\)` (wage as dependent variable is often log transformed. The change of wage is in term of proprotion)
+  
+  - `\(y = \beta_0 + \beta_1*log(x)\)` (wage as independent variable)
+  
+  - `\(y = \beta_0 + \beta_1x+ \beta_2x^2\)`. (wage and age, `\(age^2\)` is often added)
+]
+  
+.pull-right[
+  
+**Assumptions** 
 
-  - Both `y` and `x` and be transformed in the simple regression. &lt;sup&gt;1 
-  
-  - `\(log(y) = \beta_0 + \beta_1x\)`
-  
-  - `\(y = \beta_0 + \beta_1*log(x)\)`
-  
-  - `\(y = \beta_0 + \beta_1x+ \beta_2x^2\)`
-  
+- **linearity**: y and x should be linearly related 
 
-.footnote[Once they are transformed, the **interpretation** of coefficient changes]
+- **Zero mean**: the error term `\((\epsilon_i|x)\)` has a mean of zero
+  
+- **Independence**: `\((x_i, y_i)\)` are independently sampled. 
+  
+- **Homoscedasticity**: Constant variance of the error term, which should be independent from X
+]
+
+Once they are transformed, the **interpretation** of coefficient changes
 
 ---
+
+# X dummy variable (a categorical variable with only two values) 
+
+Using dataset of `mtcars`: `mpg` vs `am`
+
+--
+
+Comparison the result of t-test and regress 
+
+.pull-left[
+
+
+```r
+  t.test(mpg ~ am, data = mtcars, var.equal = TRUE)
+```
+
+```
+
+	Two Sample t-test
+
+data:  mpg by am
+t = -4.1061, df = 30, p-value = 0.000285
+alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
+95 percent confidence interval:
+ -10.84837  -3.64151
+sample estimates:
+mean in group 0 mean in group 1 
+       17.14737        24.39231 
+```
+]
+
+.pull-right[
+
+
+```r
+lm(mpg~ am, data = mtcars) %&gt;%
+  summary()
+```
+
+```
+
+Call:
+lm(formula = mpg ~ am, data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-9.3923 -3.0923 -0.2974  3.2439  9.5077 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   17.147      1.125  15.247 1.13e-15 ***
+am             7.245      1.764   4.106 0.000285 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.902 on 30 degrees of freedom
+Multiple R-squared:  0.3598,	Adjusted R-squared:  0.3385 
+F-statistic: 16.86 on 1 and 30 DF,  p-value: 0.000285
+```
+]
+---
+
+# Log transformation of y 
+
+- Specification: `\(log(y) = \beta_0 + \beta_1x\)`
+
+Take `\(log(y)\)` as a whole. If x increase by 1 unit, and `\(log(y)\)`, **not `\(y\)`**,  would increase by `\(\beta_1\)` unit. Better to derive its marginal effect using the derivatives. 
+
+`$$\frac{\partial log(y)}{\partial x} = \beta_1$$`
+`$$\frac{1}{y}*\frac{\partial y}{\partial x} = \beta_1$$`
+If this is hard to understand, you can treat `\(\partial\)` as a change `\((\Delta)\)`
+
+`$$\frac{1}{y}*\frac{\Delta y}{\Delta x} = \beta_1$$`
+`$$\frac{\Delta y}{y} = \beta_1\Delta x$$`
+if x change in 1 **unit** `\((\Delta x = 1)\)`, the percentage change of `\(y\)` would be `\(\beta_1*100\%\)`
+
+---
+
+# Example 
+
+if we estimate the wage (in USD) and education (in year) relationship as the following: 
+
+$$log(wage) = 4.5 + 0.23*education $$
+What is the meaning of the 0.23 in the model?
+
+--
+&lt;br&gt;
+
+&lt;center&gt; 
+
+&gt; 1 year education would increase the wage by 23%
+
+---
+
+# log transformation of x 
+
+Specification: `\(y = \beta_0 + \beta_1log(x)\)`
+
+`$$\frac{\partial y}{\partial x} = \beta_1*\frac{\partial log(x)}{\partial x} = \beta_1*\frac{1}{x}$$`
+`$$\partial y = \beta_1 * \frac{\partial x}{x}$$`
+then the model should be explained as if x is increase by **1%**, y will `\(\beta_1/100\)` **unit**
+
+--
+
+Example: examining the relationship between use of outpatient visit and income
+
+`$$\text{Number of outpatient visits} = 1.0 + 2.0*log(income)$$`
+What is the meaning of the 2.0 in the regression model? 
+
+--
+
+&gt; If the income increases by 1%, the number of outpatient visit would increase by 0.02 visit. In another word, if income doubles (increase by 100%), the outpatient visit will increase by 2 visit. 
+
+---
+
+# log transformation of both y and x
+
+Specification: `\(log(y) = \beta_0 + \beta_1 log(x)\)`
+
+`$$\frac{\partial log(y)}{\partial x} = \beta_1*\frac{\partial log(x)}{\partial x}$$`
+`$$\frac{1}{y}*\frac{\partial y}{\partial x} = \beta_1 *\frac{1}{x}$$`
+`$$\frac{\partial y}{y} = \beta_1*\frac{\partial x}{x}$$`
+then `\(\beta_1\)` is interpreated as if x increase by 1%, then y would increase by `\(\beta_1\%\)`. `\(\beta_1\)` is the elasticity in economics. 
+
+---
+
+# Example
+
+To estimate the price elasticity of consumption of apples (in kg), we estimate the relationship as the following 
+
+`$$\text{log(Consumption of apples) = 45 - 0.5*log(price) }$$`
+What is the meaning of 0.5 in the regression model 
+
+--
+
+&lt;br&gt;
+
+&gt; If the price of apple increase by **1%**, the consumption of apple would reduce by **0.5%**
+
+---
+
+# Summary 
+
+&lt;center&gt; 
+
+&lt;img src="\libs\pic\S9-F1.png" width = "800"&gt;
+
+
+---
+
+# Adding additional term of x, quadratic term `\((x^2)\)` 
+
+.pull-left[
+
+Specification: `\(y = \beta_0 + \beta_1x + \beta_2x^2\)`
+
+`\(\frac{\partial y}{\partial x} = \beta_1 + 2\beta_2x\)`
+
+`\(\text{Annual activity hour} = 20 + 10*age - 0.1*age^2\)`
+
+then, the marginal effect is not a constant, depending on age. 
+
+If you are at age of 20, 1 year increase in age, the activity would increase by 
+
+`\(10-0.1*20 = 8\)` hours
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/unnamed-chunk-4-1.png" height="400" style="display: block; margin: auto;" /&gt;
+]
+---
+
+# Assumptions
+
+.pull-left[
+- **linearity**: y and x should be linearly related 
+
+- **Zero mean**: the error term `\((\epsilon_i|x)\)` has a mean of zero
+  
+- **Independence**: `\((x_i, y_i)\)` are independently sampled. 
+  
+- **Homoscedasticity**: Constant variance of the error term, which should be independent from X
+]
+
+.pull-right[
+
+&lt;img src="\libs\pic\S9-F2.png" width = "400"&gt;
+
+&lt;img src="\libs\pic\S9-F3.png" width = "400"&gt;
+
+]
+
+---
+
+# Linear regression in R 
+
+`lm(y ~ x, data= )` ; dataset of `mtcars`: mpg (`mpg`) vs weight (`wt`)
+
+.pull-left[
+
+
+```r
+mtcars%&gt;%
+  ggplot(aes(x=wt, y=mpg)) + 
+  geom_point(size = 3, color = "red", alpha = 0.5) + 
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_classic() +
+  theme(text = element_text(size = 20))
+```
+]
+
+.pull-right[
+
+&lt;img src="index_files/figure-html/lmexp3-1.png" height="450" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Regression results 
+
+
+```r
+lmrest &lt;- lm(mpg ~ wt, data = mtcars)
+summary(lmrest) # Summary of results 
+```
+
+```
+
+Call:
+lm(formula = mpg ~ wt, data = mtcars)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.5432 -2.3647 -0.1252  1.4096  6.8727 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  37.2851     1.8776  19.858  &lt; 2e-16 ***
+wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.046 on 30 degrees of freedom
+Multiple R-squared:  0.7528,	Adjusted R-squared:  0.7446 
+F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10
+```
+---
+
+# More
+
+
+```r
+confint(lmrest) # 95% CI 
+```
+
+```
+                2.5 %    97.5 %
+(Intercept) 33.450500 41.119753
+wt          -6.486308 -4.202635
+```
+
+```r
+anova(lmrest) # Aanlaysis of variance of regression model
+```
+
+```
+Analysis of Variance Table
+
+Response: mpg
+          Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+wt         1 847.73  847.73  91.375 1.294e-10 ***
+Residuals 30 278.32    9.28                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+---
+
+# Group exercise 
 
 
 ---
@@ -290,8 +577,7 @@ background-position: left
 
 class: middle, center, inverse
 
-# .pull-right[.large[Thank you!]] 
-
+# .pull-right[.large[Thank you!]]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
