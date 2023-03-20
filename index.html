@@ -4,8 +4,10 @@
     <title>Session 9. Correlations and simple regression</title>
     <meta charset="utf-8" />
     <meta name="author" content="Wu Zeng, MD, PhD" />
-    <script src="libs/header-attrs-2.18/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
     <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
     <script src="libs/panelset-0.2.6/panelset.js"></script>
     <script src="libs/fabric-4.3.1/fabric.min.js"></script>
@@ -14,8 +16,6 @@
     <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
     <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
     <script src="libs/tile-view-0.2.6/tile-view.js"></script>
-    <link rel="stylesheet" href="libs/css/default-fonts.css" type="text/css" />
-    <link rel="stylesheet" href="libs/css/my-red.css" type="text/css" />
     <link rel="stylesheet" href="libs/css/hygge-gu.css" type="text/css" />
   </head>
   <body>
@@ -350,7 +350,8 @@ Coefficients:
 (Intercept)   17.147      1.125  15.247 1.13e-15 ***
 am             7.245      1.764   4.106 0.000285 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  
+0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 4.902 on 30 degrees of freedom
 Multiple R-squared:  0.3598,	Adjusted R-squared:  0.3385 
@@ -541,7 +542,8 @@ Coefficients:
 (Intercept)  37.2851     1.8776  19.858  &lt; 2e-16 ***
 wt           -5.3445     0.5591  -9.559 1.29e-10 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  
+0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 3.046 on 30 degrees of freedom
 Multiple R-squared:  0.7528,	Adjusted R-squared:  0.7446 
@@ -574,21 +576,41 @@ Response: mpg
 wt         1 847.73  847.73  91.375 1.294e-10 ***
 Residuals 30 278.32    9.28                      
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+Signif. codes:  
+0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
 ---
-
 # Group exercise 
+
+use the data from http://people.brandeis.edu/~wuzengcn/ecodata/WAGE2.DTA. Import data into r
+
+
+```r
+wagedta &lt;- foreign::read.dta("http://people.brandeis.edu/~wuzengcn/ecodata/WAGE2.DTA")
+```
+
+1. To estimate a simple regression explaining monthly salary (`wage`) in terms of IQ score (`IQ`).
+
+  - Find the average salary and average IQ in the sample. What is the standard deviation of IQ?
+  
+  - Draw a scatter plot to show the relationship between `salary` and `IQ`
+  
+  - Estimate a simple regression model where a one-point increase in IQ changes wage by a constant dollar amount. Use this model to find the predicted increase in wage for an increase in IQ of 15 points. Does IQ explain most of the variation in wage?
+
+2. Please do the same between `salary` and `age`
+
+  - in the last step to buide a model with `salary` as the dependent variable and `age` and age square as independent variables
+
+  
+
+
 
 
 ---
-background-image: url("libs/pic/bookshelf.jpg")
-background-size: contain
-background-position: left
 
 class: middle, center, inverse
 
-# .pull-right[.large[Thank you!]]
+#.large[Thank you!]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
