@@ -37,7 +37,7 @@ class: title-slide, center, middle, inverse
 
 #### Georgetown University
 
-### March 10 2022
+### March 20 2022
 
 ---
 
@@ -68,7 +68,7 @@ class: title-slide, center, middle, inverse
 
 1. Population: `\(Y_i = \beta_0 + \beta_1X_i + u_i\)`, sample: `\(y_i = \hat{\beta_0} + \hat{\beta_1}x_i + \epsilon_i\)` &lt;sup&gt;1
 
-1. Least squares estimation `\(min(\epsilon^2)\)` to estimate `\(\hat{\beta_0}\)` and `\(\hat{\beta_1}\)`
+1. `\(min(\epsilon^2)\)` to estimate `\(\hat{\beta_0}\)` and `\(\hat{\beta_1}\)`
 
 1. Does the model fit the data well?
 
@@ -76,14 +76,14 @@ class: title-slide, center, middle, inverse
 
 1. What is the meaning of `\(\hat{\beta_0}\)` and  `\(\hat{\beta_1}\)`?
 
-1. What are the assumptions in using simple linear regression? 
+1. What are the assumptions of simple linear regression? 
 
 1. R commands to conduct simple linear regression
 
-&lt;br&gt;
+]
 
 &lt;sup&gt;1 &lt;/sup&gt; `\(\hat{}\)` refers to sample estimates, population parameters are without `\(\hat{}\)`, which is `\(\beta_0\)` and `\(\beta_1\)`
-]
+
 
 ---
 
@@ -600,11 +600,6 @@ wagedta &lt;- foreign::read.dta("http://people.brandeis.edu/~wuzengcn/ecodata/WA
 2. Please do the same between `salary` and `age`
 
   - in the last step to buide a model with `salary` as the dependent variable and `age` and age square as independent variables
-
-  
-
-
-
 
 ---
 
