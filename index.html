@@ -4,7 +4,7 @@
     <title>Session 9. Correlations and simple regression</title>
     <meta charset="utf-8" />
     <meta name="author" content="Wu Zeng, MD, PhD" />
-    <script src="libs/header-attrs-2.18/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.21/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
@@ -37,7 +37,7 @@ class: title-slide, center, middle, inverse
 
 #### Georgetown University
 
-### March 20 2022
+### March 13 2025
 
 ---
 
@@ -272,7 +272,7 @@ in a simply linear regression
 
 - Both `y` and `x` can be transformed in the simple and multiple regression. 
   
-  - `x` can be a dummy variable and categorical variable
+  - `x` can be a .red[dummy] or .red[categorical] variable
   
   - `\(log(y) = \beta_0 + \beta_1x\)` (wage as dependent variable is often log transformed. The change of wage is in term of proprotion)
   
@@ -310,7 +310,7 @@ Comparison the result of t-test and regress
 
 
 ```r
-t.test(mpg ~ am, data = mtcars, var.equal = TRUE)
+  t.test(mpg ~ am, data = mtcars, var.equal = TRUE)
 ```
 
 ```
@@ -359,6 +359,13 @@ F-statistic: 16.86 on 1 and 30 DF,  p-value: 0.000285
 ]
 ---
 
+# Interpretation of transformed models 
+
+&lt;center&gt; 
+
+&lt;img src="\libs\pic\S9-F1.png" width = "800"&gt;
+---
+exclude: TRUE
 # Log transformation of y 
 
 - Specification: `\(log(y) = \beta_0 + \beta_1x\)`
@@ -390,6 +397,7 @@ What is the meaning of the 0.23 in the model?
 &gt; 1 year education would increase the wage by 23%
 
 ---
+exclude: TRUE
 
 # log transformation of x 
 
@@ -411,6 +419,7 @@ What is the meaning of the 2.0 in the regression model?
 &gt; If the income increases by 1%, the number of outpatient visit would increase by 0.02 visit. In another word, if income doubles (increase by 100%), the outpatient visit will increase by 2 visit. 
 
 ---
+exclude: TRUE
 
 # log transformation of both y and x
 
@@ -435,15 +444,6 @@ What is the meaning of 0.5 in the regression model
 &lt;br&gt;
 
 &gt; If the price of apple increase by **1%**, the consumption of apple would reduce by **0.5%**
-
----
-
-# Summary 
-
-&lt;center&gt; 
-
-&lt;img src="\libs\pic\S9-F1.png" width = "800"&gt;
-
 
 ---
 
